@@ -29,7 +29,7 @@ proc Update_L4 {} {
   AddLineToText "Checking current FW"
   set ret [Check_L4_Ver]
   if {$ret=="-1" || $ret=="-2"} {return $ret}
-  AddLineToText "Current FW: $ret"
+  AddLineToText "\tCurrent FW: $ret"
   if {$ret=="EC25AFFDR07A10M4G"} {
     Status "FW is $ret, no need update" green
     return 0
@@ -40,7 +40,7 @@ proc Update_L4 {} {
     AddLineToText "Checking updated FW"
     set ret [Check_L4_Ver]
     if {$ret=="-1" || $ret=="-2"} {return $ret}
-    AddLineToText "Updated FW: $ret"
+    AddLineToText "\tUpdated FW: $ret"
     if {$ret=="EC25AFFDR07A10M4G"} {
       Status "FW is $ret" green
       return 0
@@ -75,9 +75,6 @@ proc GuiLinuxLevel {} {
     update
     Status "Done" yellow
   }
-  
-  
-  
   
   return 0
 }
