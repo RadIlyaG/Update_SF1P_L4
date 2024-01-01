@@ -1,0 +1,15 @@
+
+#### Needed Files #####
+
+1. QFirehose binary.
+2. FW version files.(EC25AFFDR07A10M4G_01.007.01.007 for example)
+
+
+#### Procedure: #####
+
+1. Copy the QFirehose and the version folder to the SF1v device.
+2. Adjust chmod 777 to the QFirehose executable.
+3. run ./QFirehose -f ../../EC25AFFDR07A10M4G_01.007.01.007/     (adjust pathes)
+4. Sometiems on first run errors occurs, so we ussually run it twice.
+   When successfully upgraded this wil be printed by the end of the output:
+   [050.558]: Upgrade module successfully.
