@@ -9,14 +9,16 @@ proc InitRefUnit {} {
   if {$ret==0} {
     set ret [InitRefUnitPerf]
   }
+  CloseComUut
   if {$ret!=0} {
     RLSound::Play fail
     update
     DialogBox -icon /images/error -title "Fail to init reference" -text $gaSet(fail) -type OK
-  }
-  
-  CloseComUut
-  Status "$gaSet(fail)" red
+    Status "$gaSet(fail)" red
+  } else {  
+    RLSound::Play information
+    Status Done yellow
+  }  
   
   return 0
 }
@@ -54,20 +56,28 @@ proc Update_L4 {} {
 # ***************************************************************************
 proc GuiLinuxLevel {} {
   global gaSet buffer
+  set ::sendSlow 1
   catch {CloseComUut} 
   after 1000
   set ret [OpenComUut]
   if {$ret==0} {
+    set ret [Login]
+    if {$ret!=0} {return $ret}
     set ret [Login2Linux]
   }
+  CloseComUut
   if {$ret!=0} {
     RLSound::Play fail
     update
-    DialogBox -icon /images/error -title "Fail enter to Linux Level" -text $gaSet(fail) -type OK
+    Status "$gaSet(fail)" red
+  } else {
+    RLSound::Play information
+    update
+    Status "Done" yellow
   }
   
-  CloseComUut
-  Status "$gaSet(fail)" red
+  
+  
   
   return 0
 }

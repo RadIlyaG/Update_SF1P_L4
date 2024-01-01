@@ -137,15 +137,15 @@ proc InitRefUnitPerf {} {
   set ::sendSlow 0
   puts "\n[MyTime] Init Ref Unit"; update
   set com $gaSet(comDut)
-  
+  AddLineToText "Initializing Reference Unit"
   set ret [Login]
   if {$ret!=0} {return $ret}
   
  
   set ret [PingToRef]
   if {$ret!=0} {
-  
-   Status "Init Ref Unit"
+    AddLineToText "Initializing Ethernet"
+    Status "Init Ref Unit"
     set ret [Send $com "exit all\r" "-1p"]
     if {$ret!=0} {return $ret}
     set ret [Send $com "configure\r" "config#"]
@@ -192,16 +192,22 @@ proc InitRefUnitPerf {} {
     if {$ret!=0} {return $ret}
   }  
   
+  AddLineToText "Initializing Root Password"
   set ret [Login2Linux]
-  if {$ret!=0} {return $ret}   
+  if {$ret!=0} {return $ret}  
+
+  set ret [Send $com "passwd root\r" "New password"]
+  set ret [Send $com "123456\r" "stam" 1]
+  set ret [Send $com "123456\r" "#"]
+  #if {$ret!=0} {return $ret}
   
-  set ret [Send $com "ll /mnt\r" "#"]
-  if {$ret!=0} {return $ret}
-  puts "llmnt:<$buffer>"
-  if ![string match {*QFirehose*} $buffer] {
-    set gaSet(fail) "No QFirehose at /mnt"
-    return -1
-  }
+  # set ret [Send $com "ll /mnt\r" "#"]
+  # if {$ret!=0} {return $ret}
+  # puts "llmnt:<$buffer>"
+  # if ![string match {*QFirehose*} $buffer] {
+    # set gaSet(fail) "No QFirehose at /mnt"
+    # return -1
+  # }
   
   return $ret
 }
@@ -211,6 +217,7 @@ proc InitRefUnitPerf {} {
 proc PingToRef {} {
   global gaSet 
   set addr 10.10.10.1$gaSet(pair)
+  AddLineToText "Pings to $addr"
   Status "Pings to $addr"
   catch {exec ping $addr -n 1} res
   puts "Res of ping: <$res>"

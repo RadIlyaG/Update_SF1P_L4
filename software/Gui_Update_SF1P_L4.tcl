@@ -7,8 +7,6 @@ proc GUI {} {
   
   set descmenu {
     "&File" all file 0 {	 
-      {command "Log File"  {} {} {} -command ShowLog}
-	    {separator}     
       {cascad "&Console" {} console 0 {
         {checkbutton "console show" {} "Console Show" {} -command "console show" -variable gConsole}
         {command "Capture Console" cc "Capture Console" {} -command CaptureConsole}
@@ -24,12 +22,13 @@ proc GUI {} {
       {command "UUT" "" "" {} -command {OpenTeraTerm gaSet(comDut)}}      
       {command "Linux level"  {} {} {} -command GuiLinuxLevel}      
     }
-    "&About" all about 0 {
-      {command "&About" about "" {} -command {About} 
-      }
-    }
+    
   }
   
+  # "&About" all about 0 {
+      # {command "&About" about "" {} -command {About}}
+    # }
+    
   set mainframe [MainFrame .mainframe -menu $descmenu]
   set gaSet(sstatus) [$mainframe addindicator]  
   $gaSet(sstatus) configure -width 60 
