@@ -297,7 +297,7 @@ proc Update_L4_Perf {} {
   set ret [Send $com "cd /mnt\r" "#"]
   set ret [Send $com "chmod 777 QFirehose\r" "#"]
    
-  AddLineToText "First time FW updating"
+  AddLineToText "Updating FW first time"
   Status "Update FW (1)"
   set ret [Send $com \r\r "#"]
   #set ret [Send $com "./QFirehose -f EC25AFFDR07A10M4G_01.007.01.007/\r" "mnt" 60]
@@ -308,7 +308,7 @@ proc Update_L4_Perf {} {
     return -1
   } 
   if {[string match {*Upgrade module failed*} $buffer]} {
-    AddLineToText "Second time FW updating"
+    AddLineToText "Updating FW second time"
     Status "Update FW (2)"
     #set ret [Send $com "./QFirehose -f EC25AFFDR07A10M4G_01.007.01.007/\r" "Upgrade module successfully" 60]
     set ret [Send $com \r\r "#"]
@@ -328,7 +328,7 @@ proc Update_L4_Perf {} {
 # ***************************************************************************
 proc AdminReboot {} {
   global gaSet buffer gaGui
-  AddLineToText "Reboot after FW updating"
+  AddLineToText "Rebooting after FW update"
   Status "Admin Reboot"
   set ret [Login]
   if {$ret!=0} {return $ret}
