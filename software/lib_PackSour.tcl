@@ -103,11 +103,11 @@ if 1 {
 
 package require BWidget
 package require img::ico
-package require RLSerial
+#package require RLSerial
 package require RLEH
 package require RLTime
 package require RLStatus
-package require RLUsbPio
+#package require RLUsbPio
 package require RLSound  
 package require RLCom
 RLSound::Open ; # [list failbeep fail.wav passbeep pass.wav beep warning.wav]
